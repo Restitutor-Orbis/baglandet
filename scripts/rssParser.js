@@ -11,7 +11,7 @@ function generateFeed(url, noOfArticles) {
           let feed = domParser.parseFromString(xmlTxt, 'text/xml')
           feed.querySelectorAll('item').forEach((item) => {
              i++;
-             if(i > noOfArticles) throw BreakException;
+             if(i > noOfArticles) throw error;
 
              let h1 = document.createElement('h1')
               h1.textContent = item.querySelector('title').textContent
@@ -21,6 +21,6 @@ function generateFeed(url, noOfArticles) {
               img.src = item.querySelector('media:thumbnail').url;
                document.getElementById('output').appendChild(img);
              })
-           }).catch((e) => {if (e !== BreakException) throw e});
+           }).catch((e) => {});
     }).catch(() => console.error('Error in fetching the feed'))
 }
