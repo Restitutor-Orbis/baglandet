@@ -11,7 +11,7 @@ var dr_politik_url         = "https://www.dr.dk/nyheder/service/feeds/politik";
 var berlingske_politik_url = "https://www.berlingske.dk/content/23/rss";
 
 generateFeed_jyllandsposten(jylland_politik_url, 1,2);
-generateTwitterFeed();
+//generateTwitterFeed();
 generateFeed_berlingske(berlingske_politik_url, 1,29299);
 
 

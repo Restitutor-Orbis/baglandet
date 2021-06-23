@@ -22,8 +22,8 @@ function generateFeed_jyllandsposten(url, min, high) {
             let container = document.createElement('div');
             container.classList.add('article-container');
 
-            if(j % 2 === 0) container.style.marginLeft   = "2%";
-            else            container.style.marginRight  = "2%";
+            if(j % 2 === 0) container.style.float = "right";
+            else            container.style.float = "left";
 
             //fetch basic information
             var title       = item.querySelector('title').textContent;
@@ -82,8 +82,8 @@ function generateFeed_berlingske(url, min, high) {
           let container = document.createElement('div');
           container.classList.add('article-container');
 
-          if(j % 2 === 0) container.style.marginLeft   = "2%";
-          else            container.style.marginRight  = "2%";
+          if(j % 2 === 0) container.style.float = "right";
+          else            container.style.float = "left";
 
           //fetch basic information
           var title       = item.querySelector('title').textContent;
@@ -93,13 +93,13 @@ function generateFeed_berlingske(url, min, high) {
           var redirect    = item.querySelector('link').textContent;
           var newspaper   = "BERLINGSKE";
 
-          var use_description = false;
+          var use_description = true;
 
           try {
             var image_url   = item.querySelector('enclosure').attributes[0].value;
             addImage(image_url, container);
           } catch(err) {
-            use_description = true;
+            use_description = false;
           }
 
           //format information
