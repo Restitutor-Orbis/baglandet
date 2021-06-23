@@ -17,9 +17,9 @@ function generateFeed(url, noOfArticles) {
               h1.textContent = item.querySelector('title').textContent
                document.getElementById('output').appendChild(h1)
 
-             let img = document.createElement('img');
-              img.src = item.querySelector('media:thumbnail').url;
-               document.getElementById('output').appendChild(img);
+             let img = document.createElement('img')
+              img.src = item.querySelector('media:thumbnail').url
+               document.getElementById('output').appendChild(img)
              })
            }).catch((e) => {});
     }).catch(() => console.error('Error in fetching the feed'))
