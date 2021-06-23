@@ -13,6 +13,10 @@ function generateFeed(url, noOfArticles) {
              i++;
              if(i > noOfArticles) throw BreakException;
 
+             let img = document.createElement();
+              img.url = item.querySelector('media:thumbnail').url;
+               document.getElementById('output').appendChild(img);
+
              let h1 = document.createElement('h1')
               h1.textContent = item.querySelector('title').textContent
                document.getElementById('output').appendChild(h1)

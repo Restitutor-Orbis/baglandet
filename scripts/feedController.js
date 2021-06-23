@@ -5,6 +5,4 @@ var politikken_debat_url  = "http://politiken.dk/rss/senestenyt";
 
 var jylland_politik_url   = "https://jyllands-posten.dk/politik/?service=rssfeed";
 
-generateFeed(podcast_politics_url, 5);
-generateFeed(podcast_EU_url, 10);
 generateFeed(jylland_politik_url, 5);
