@@ -17,6 +17,6 @@ function generateFeed(url, noOfArticles) {
               h1.textContent = item.querySelector('title').textContent
                document.getElementById('output').appendChild(h1)
              })
-           }).catch(() => {if (e !== BreakException) throw e});
+           }).catch((e) => {if (e !== BreakException) throw e});
     }).catch(() => console.error('Error in fetching the feed'))
 }
