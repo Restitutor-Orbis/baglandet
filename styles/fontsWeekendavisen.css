@@ -1,0 +1,185 @@
+@font-face {
+    font-family: weekendAvisen;
+    src: url("../res/fonts/weekendavisen/WEASans-RegularWEB.7ee91e96.woff");
+}
+
+@font-face {
+    font-family: weekendAvisenMedium;
+    src: url("../res/fonts/weekendavisen/WEASans-MediumWEB.ab9dc461.woff");
+}
+
+@font-face {
+    font-family: 'WEA Hairline';
+    src: url('./WEA_Hairline/WEAHairline-RegularWEB.woff')format('woff'),
+    url('./WEA_Hairline/WEAHairline-RegularWEB.woff2')format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA New Display';
+    src: url('./WEA_New_Display/WEANewDisplay-RegularWEB.woff')format('woff'),
+    url('./WEA_New_Display/WEANewDisplay-RegularWEB.woff2')format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'WEA New Display';
+    src: url('./WEA_New_Display/WEANewDisplay-ItalicWEB.woff')format('woff'),
+    url('./WEA_New_Display/WEANewDisplay-ItalicWEB.woff2')format('woff2');
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: 'WEA New Display';
+    src: url('./WEA_New_Display/WEANewDisplay-MediumWEB.woff')format('woff'),
+    url('./WEA_New_Display/WEANewDisplay-MediumWEB.woff2')format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA New Display';
+    src: url('./WEA_New_Display/WEANewDisplay-BoldWEB.woff')format('woff'),
+    url('./WEA_New_Display/WEANewDisplay-BoldWEB.woff2')format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA New Display';
+    src: url('./WEA_New_Display/WEANewDisplay-ExtraboldWEB.woff')format('woff'),
+    url('./WEA_New_Display/WEANewDisplay-ExtraboldWEB.woff2')format('woff2');
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA Sans';
+    src: url('./WEA_Sans/WEASans-ThinWEB.woff')format('woff'),
+    url('./WEA_Sans/WEASans-ThinWEB.woff2')format('woff2');
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA Sans';
+    src: url('./WEA_Sans/WEASans-LightWEB.woff')format('woff'),
+    url('./WEA_Sans/WEASans-LightWEB.woff2')format('woff2');
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA Sans';
+    src: url('./WEA_Sans/WEASans-RegularWEB.woff')format('woff'),
+    url('./WEA_Sans/WEASans-RegularWEB.woff2')format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'WEA Sans';
+    src: url('./WEA_Sans/WEASans-ItalicWEB.woff')format('woff'),
+    url('./WEA_Sans/WEASans-ItalicWEB.woff2')format('woff2');
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: 'WEA Sans';
+    src: url('./WEA_Sans/WEASans-MediumWEB.woff')format('woff'),
+    url('./WEA_Sans/WEASans-MediumWEB.woff2')format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA Sans';
+    src: url('./WEA_Sans/WEASans-SemiboldWEB.woff')format('woff'),
+    url('./WEA_Sans/WEASans-SemiboldWEB.woff2')format('woff2');
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA Sans';
+    src: url('./WEA_Sans/WEASans-BoldWEB.woff')format('woff'),
+    url('./WEA_Sans/WEASans-BoldWEB.woff2')format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA Sans';
+    src: url('./WEA_Sans/WEASans-ExtraboldWEB.woff')format('woff'),
+    url('./WEA_Sans/WEASans-ExtraboldWEB.woff2')format('woff2');
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA Tekst';
+    src: url('./WEA_Tekst/WEATekst-ExtralightWEB.woff')format('woff'),
+    url('./WEA_Tekst/WEATekst-ExtralightWEB.woff2')format('woff2');
+    font-weight: 200;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA Tekst';
+    src: url('./WEA_Tekst/WEATekst-LightWEB.woff')format('woff'),
+    url('./WEA_Tekst/WEATekst-LightWEB.woff2')format('woff2');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'WEA Tekst';
+    src: url('./WEA_Tekst/WEATekst-LightItalicWEB.woff')format('woff'),
+    url('./WEA_Tekst/WEATekst-LightItalicWEB.woff2')format('woff2');
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: 'WEA Tekst';
+    src: url('./WEA_Tekst/WEATekst-RegularWEB.woff')format('woff'),
+    url('./WEA_Tekst/WEATekst-RegularWEB.woff2')format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'WEA Tekst';
+    src: url('./WEA_Tekst/WEATekst-ItalicWEB.woff')format('woff'),
+    url('./WEA_Tekst/WEATekst-ItalicWEB.woff2')format('woff2');
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: 'WEA Tekst';
+    src: url('./WEA_Tekst/WEATekst-MediumWEB.woff')format('woff'),
+    url('./WEA_Tekst/WEATekst-MediumWEB.woff2')format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA Tekst';
+    src: url('./WEA_Tekst/WEATekst-SemiboldWEB.woff')format('woff'),
+    url('./WEA_Tekst/WEATekst-SemiboldWEB.woff2')format('woff2');
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'WEA Tekst';
+    src: url('./WEA_Tekst/WEATekst-BoldWEB.woff')format('woff'),
+    url('./WEA_Tekst/WEATekst-BoldWEB.woff2')format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
