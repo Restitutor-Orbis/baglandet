@@ -18,7 +18,7 @@
 
     .article-container {
         width: 46%;
-        height: 350px;
+        height: 430px;
         float: left;
 
         position: relative;
@@ -40,6 +40,10 @@
         margin: 5px 0 10px 0;
     }
 
+    .article-container h1:hover {
+        cursor: pointer;
+    }
+
     .article-container h1 {
         text-align: left;
         font-weight: 600;
@@ -47,9 +51,8 @@
     }
 
     .newspaper-tag {
-        position: absolute;
-        bottom: 20px;
-
+        padding-top: 25px;
+        font-weight: 550;
         font-size: 10pt;
     }
 

@@ -10,9 +10,9 @@ var dr_politik_url         = "https://www.dr.dk/nyheder/service/feeds/politik";
 
 var berlingske_politik_url = "https://www.berlingske.dk/content/23/rss";
 
-generateFeed_jyllandsposten(jylland_politik_url, 1,4);
-generateFeed_berlingske(berlingske_politik_url, 1,29299);
+generateFeed_jyllandsposten(jylland_politik_url, 1,2);
 generateTwitterFeed();
+generateFeed_berlingske(berlingske_politik_url, 1,29299);
 
 
 //different tag colors. you need to know the tags in the xml to edit these
