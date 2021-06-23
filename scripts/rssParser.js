@@ -14,7 +14,7 @@ function generateFeed(url, noOfArticles) {
              if(i > noOfArticles) throw BreakException;
 
              let img = document.createElement();
-              img.url = item.querySelector('media:thumbnail').url;
+              img.src = item.querySelector('media:thumbnail').url;
                document.getElementById('output').appendChild(img);
 
              let h1 = document.createElement('h1')
