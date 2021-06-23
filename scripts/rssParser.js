@@ -18,7 +18,7 @@ function generateFeed(url, noOfArticles) {
                document.getElementById('output').appendChild(h1)
 
              let img = document.createElement('img')
-              img.src = item.querySelector('media:thumbnail').url
+              img.src = item.querySelector('media:content').url
                document.getElementById('output').appendChild(img)
              })
            }).catch((e) => {});
