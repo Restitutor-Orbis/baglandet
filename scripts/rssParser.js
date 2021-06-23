@@ -13,13 +13,13 @@ function generateFeed(url, noOfArticles) {
              i++;
              if(i > noOfArticles) throw BreakException;
 
-             let img = document.createElement();
-              img.src = item.querySelector('media:thumbnail').url;
-               document.getElementById('output').appendChild(img);
-
              let h1 = document.createElement('h1')
               h1.textContent = item.querySelector('title').textContent
                document.getElementById('output').appendChild(h1)
+
+             let img = document.createElement('img');
+              img.src = item.querySelector('media:thumbnail').url;
+               document.getElementById('output').appendChild(img);
              })
            }).catch((e) => {if (e !== BreakException) throw e});
     }).catch(() => console.error('Error in fetching the feed'))
