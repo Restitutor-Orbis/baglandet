@@ -10,12 +10,12 @@ function generateFeed_jyllandsposten(url, min, high) {
 
     fetch(url).then((res) => {
         res.text().then((xmlTxt) => {
-          var domParser = new DOMParser()
-          let feed = domParser.parseFromString(xmlTxt, 'text/xml')
+          var domParser = new DOMParser();
+          let feed = domParser.parseFromString(xmlTxt, 'text/xml');
           feed.querySelectorAll('item').forEach((item) => {
             i++;
             if(i < min) return;
-            if(i > high) throw error;
+            if(i > high) return;
 
             j++;
 
@@ -33,31 +33,25 @@ function generateFeed_jyllandsposten(url, min, high) {
             var redirect    = item.querySelector('link').textContent;
             var newspaper   = "JYLLANDSPOSTEN";
 
-            var use_description = false;
-
             //format information
             date = date.substring(17, 22);
 
-            try { //due to difficulty in getting media:content... (image for this newspaper)
-              var image_url = item.getElementsByTagName('media:thumbnail')[0].attributes[0].nodeValue; //getting image node
-              addImage(image_url, container);
-            } catch(err) {
-              use_description = true;
-            }
-
-            addTag(tag_type, date, container);
+            addTag(tag_type, date, newspaper, container);
             addTitle(title, container, redirect); 
 
+            addDescription(description, container);
 
-            if(use_description)
-              addDescription(description, container);
-
-            addNewspaper(newspaper, container);
+            timeToContent.set(date, container);
 
             document.getElementById('news-section-1').appendChild(container);
-            })
-          });
-    }).catch(() => console.error('Error in loading the feed'))
+
+            addToGlobalMap();
+
+          }).catch((Error) => {
+            console.error('Hit max value');
+          })
+        });
+    }).catch(() => console.error('Error in fetching the feed'));
 }
 
 
@@ -75,7 +69,7 @@ function generateFeed_berlingske(url, min, high) {
         feed.querySelectorAll('item').forEach((item) => {
           i++;
           if(i < min) return;
-          if(i > high) throw error;
+          if(i > high) return;
 
           j++;
 
@@ -93,31 +87,18 @@ function generateFeed_berlingske(url, min, high) {
           var redirect    = item.querySelector('link').textContent;
           var newspaper   = "BERLINGSKE";
 
-          var use_description = true;
-
-          try {
-            var image_url   = item.querySelector('enclosure').attributes[0].value;
-            addImage(image_url, container);
-          } catch(err) {
-            use_description = false;
-          }
-
           //format information
           date = date.substring(17, 22);
 
-          addTag(tag_type, date, container);
+          addTag(tag_type, date, newspaper, container);
           addTitle(title, container, redirect); 
 
-          if(!use_description) {
-            addDescription(description, container);
-          }
-
-          addNewspaper(newspaper, container);
+          addDescription(description, container);
 
           document.getElementById('news-section-1').appendChild(container);
-          })
-        });
-  }).catch(() => console.error('Error in loading the feed'))
+        }).catch(() => console.error('Hit max value'))
+      });
+  }).catch(() => console.error('Error in fething the feed'))
 }
 
 function addImage(image_url, container) {
@@ -126,7 +107,7 @@ function addImage(image_url, container) {
   container.appendChild(img);
 }
 
-function addTag(tag_type, date, container) {
+function addTag(tag_type, date, newspaper, container) {
   let tag = document.createElement('p');
   tag.textContent = tag_type;
   tag.classList.add('tag');
@@ -134,6 +115,7 @@ function addTag(tag_type, date, container) {
   container.appendChild(tag);
 
   addTime(date, container, tag);
+  addNewspaper(newspaper, tag);
 }
 
 function addTime(date, container, tag) {
@@ -157,9 +139,9 @@ function addDescription(description, container) {
   container.appendChild(desc);
 }
 
-function addNewspaper(newspaper, container) {
+function addNewspaper(newspaper, tag) {
   let newspaper_element = document.createElement('p');
   newspaper_element.classList.add('newspaper-tag');
   newspaper_element.textContent = newspaper;
-  container.appendChild(newspaper_element);
+  tag.appendChild(newspaper_element);
 }

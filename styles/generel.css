@@ -1,5 +1,7 @@
 :root {
     --accent-color: #9dcbb6;
+    --main-background-color: white;
+    --background-contrast-color: #d3d3d3;
   }
 
 body {
