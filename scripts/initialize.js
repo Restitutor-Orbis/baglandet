@@ -1,2 +1,4 @@
 
-var timeToContent = new Map();
+const timeToContent = new Map();
+
+var noOfElements  = 0;
