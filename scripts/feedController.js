@@ -1,37 +1,64 @@
-var podcast_politics_url   = "https://rss.acast.com/altingetpolitik";
-var podcast_EU_url         = "https://rss.acast.com/altingeteu";
 
-var politikken_debat_url   = "http://politiken.dk/rss/senestenyt";
+displayArticles();
 
-var jylland_politik_url    = "https://jyllands-posten.dk/politik/?service=rssfeed";
-var jylland_kultur_url     = "https://jyllands-posten.dk/kultur/?service=rssfeed";
-var jylland_seneste_url    = "https://jyllands-posten.dk/?service=rssfeed&mode=area&areaNames=level0,topflow";
+function showCategory(category) {
+    resetFeed();
+    activeLinks = [];   
 
-var dr_politik_url         = "https://www.dr.dk/nyheder/service/feeds/allenyheder";
+    switch(category) {
+        case "domestic":
+            console.log("Showing domestic news");
 
-var berlingske_politik_url = "https://www.berlingske.dk/content/23/rss";
-var berlingske_seneste_url = "https://www.berlingske.dk/content/3/rss";
-var berlingske_sport_url   = "https://www.berlingske.dk/content/21803/rss";
-var berlingske_fodbold_url = "https://www.berlingske.dk/content/176/rss";
+            activeLinks.push("jylland_politik_url");
+            activeLinks.push("berlingske_politik_url");
+            activeLinks.push("dr_politik_url");
+            break;
 
-var mapOfAllContent = new Map();
+        case "international":
+            activeLinks.push("jylland_udenrigs_url");
+            activeLinks.push("berlingske_udenrig_url");
+            activeLinks.push("dr_udenrigs_url");
+            break;
 
+        case "entertainment":
+            activeLinks.push("berlingske_sport_url");
+            activeLinks.push("berlingske_godeliv_url");
+            activeLinks.push("dr_sport_url");
+            activeLinks.push("dr_viden_url");
+            break;
 
+        case "culture":
+            activeLinks.push();
+            activeLinks.push();
+            activeLinks.push();
+            break;
 
-generateFeed_jyllandsposten(jylland_politik_url, 1,2);
-generateFeed_jyllandsposten(jylland_kultur_url, 1,2);
-generateFeed_berlingske(berlingske_politik_url, 1, 2);
-generateFeed_berlingske(berlingske_sport_url, 1, 1);
-generateFeed_berlingske(berlingske_fodbold_url, 1, 2);
+        default:
+            break;
+    }
 
-generateFeed_DR(dr_politik_url, 1, 5);
-
-setTimeout(function () {
     displayArticles();
-}, 1000);
+}
 
+function displayArticles() {
+    //delay necesarry to allow feeds to load in first
+    for(const value of activeLinks) {
+        generateFeed(value);
+    }
 
+    setTimeout(function () {
+        sortKeysInMapAndDisplay();
+    }, 500);
+}
 
+function resetFeed() {
+    var node = document.getElementById("news-section-1");
+    timeToContent   = new Map();
+    mapOfAllContent = new Map();
+
+    while(node.firstChild) 
+        node.removeChild(node.lastChild);
+}
 
 
 function addToGlobalMap() {
@@ -45,20 +72,8 @@ function addToGlobalMap() {
     }
 }
 
-
-function displayArticles() {
-    sortKeysInMap();
-
-    printMap();
-
-    var mapIter = mapOfAllContent.keys();
-    var value = mapIter.next().value;
-    var container = document.getElementById('news-section-1');
-
-}
-
 //display most recent articles at the top
-function sortKeysInMap() {
+function sortKeysInMapAndDisplay() {
     var unsortedArray = [];
     var newMap        = new Map();
     var mapIter = mapOfAllContent.keys();
@@ -113,28 +128,41 @@ function setTagColor(tag_type) {
           return "blue";  
       case "Tæt på":
         return "#191970";
+      case "Europa":
+        return "#191970";
+      case "Indland":
+          return "blue";
+      case "Politi og retsvæsen":
+          return "teal";
+
       case "Kultur":
         return "purple";
       case "Film og serier":
         return "purple";
+      case "Litteratur":
+        return "purple";
+
       case "Samfund":
           return "darkgreen";
+      case "JP Forside":
+          return "#009e60";
+
       case "Internationalt":
           return "red";
       case "International":
           return "red";
       case "Udland":
           return "red";
-      case "JP Forside":
-          return "#009e60";
-      case "Indland":
-          return "goldenrod";
-      case "Politi og retsvæsen":
-          return "teal";
       case "EM2020":
           return "red";
+      case "Alt":
+          return "red";
+
       case "Sport":
           return "orange";
+      case "Cykling":
+          return "orange";
+          
       default:
         return "black";
     }

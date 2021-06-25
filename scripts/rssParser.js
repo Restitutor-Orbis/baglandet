@@ -1,136 +1,52 @@
 
 const DOMPARSER = new DOMParser().parseFromString.bind(new DOMParser())
 
-/* Fetch the feed from given url. Only x number of items fetched
-*  Designed to work by the XML provided by Jyllandsposten.s
-*  Based on the design from https://github.com/hongkiat/js-rss-reader
-*/
-function generateFeed_jyllandsposten(url, min, high) {
-    var i = 0; //index in total number of elements;
 
-    fetch(url).then((res) => {
-        res.text().then((xmlTxt) => {
-          var domParser = new DOMParser();
-          let feed = domParser.parseFromString(xmlTxt, 'text/xml');
-          feed.querySelectorAll('item').forEach((item) => {
-            i++;
-            if(i < min) return;
-            if(i > high) return;
+function generateFeed(link) {
+  var newspaper_tag;
+  
+  var firstIndex  = link.indexOf("_");
+  var secondIndex = link.indexOf("_", firstIndex + 1);
+  var category    = link.substring(firstIndex + 1, secondIndex);
+      category    = capitalizeFirstLetter(category);
 
-            let container = document.createElement('div');
-            container.classList.add('article-container');
+  var url = varToLink.get(link);
 
-            //fetch basic information
-            var title       = item.querySelector('title').textContent;
-            var tag_type    = item.querySelector('category').textContent;
-            var description = item.querySelector('description').textContent;
-            var date        = item.querySelector('pubDate').textContent;
-            var redirect    = item.querySelector('link').textContent;
-            var newspaper   = "JYLLANDSPOSTEN";
+  if(url.includes("berlingske")) {
+    newspaper_tag = "BERLINGSKE";
 
-            //format information
-            date = date.substring(17, 22);
+  } else if(url.includes("jyllands-posten")) {
+    newspaper_tag = "JYLLANDSPOSTEN";
 
-            addTag(tag_type, date, newspaper, container);
-            addTitle(title, container, redirect); 
-            addDescription(description, container);
+  } else if(url.includes("dr.dk")) {
+    newspaper_tag = "DANMARKS RADIO";
 
-            date = item.querySelector('pubDate').textContent.substring(17, 26);
+  }
 
-            timeToContent.set(date, container);
-
-            addToGlobalMap();
-
-          }).catch((err) => {
-            console.error('Hit max value');
-          })
-        }).catch(() => console.error('Error in loading the feed'));
-    }).catch(() => console.error('Error in fetching the feed'));
-}
-
-
-function generateFeed_berlingske(url, min, high) {
-  var i = 0; //index in total number of elements;
-
-  fetch(url).then((res) => {
-      res.text().then((xmlTxt) => {
-        var domParser = new DOMParser()
-        let feed = domParser.parseFromString(xmlTxt, 'text/xml')
-        feed.querySelectorAll('item').forEach((item) => {
+  //using feednami
+  //https://toolkit.sekando.com/docs/en/feednami
+  feednami.load(url)
+  .then(feed => {
+      var i = 0;
+      for(let entry of feed.entries){
+          if(i == 5) break;
           i++;
-          if(i < min) return;
-          if(i > high) return;
 
-          let container = document.createElement('div');
-          container.classList.add('article-container');
+          var container = document.createElement("div");
+              container.classList.add('article-container');
 
-          //fetch basic information
-          var title       = item.querySelector('title').textContent;
-          var tag_type    = item.querySelector('category').textContent;
-          var description = item.querySelector('description').textContent;
-          var date        = item.querySelector('pubDate').textContent;
-          var redirect    = item.querySelector('link').textContent;
-          var newspaper   = "BERLINGSKE";
+          var date = entry.pubDate.substring(11, 16);
 
-          //format information
-          date = date.substring(17, 22);
-
-                     addTag(tag_type, date, newspaper, container);
-          addTitle(title, container, redirect); 
-          addDescription(description, container);
-
-          date = item.querySelector('pubDate').textContent.substring(17, 26);
+          addTag(category, date, newspaper_tag, container);
+          addTitle(entry.title, entry.link, container);
+          addDescription(entry.description, container);
 
           timeToContent.set(date, container);
-
           addToGlobalMap();
-        }).catch(() => console.error('Hit max value'))
-      }).catch(() => console.error('Error in loading the feed'));;
-  }).catch(() => console.error('Error in fething the feed'))
+      }
+  });
 }
 
-
-function generateFeed_DR(url, min, high) {
-  var i = 0; //index in total number of elements;
-
-  fetch(url).then((res) => {
-      res.text().then((xmlTxt) => {
-        var domParser = new DOMParser()
-        let feed = domParser.parseFromString(xmlTxt, 'text/xml')
-        feed.querySelectorAll('item').forEach((item) => {
-          i++;
-          if(i < min) return;
-          if(i > high) return;
-
-          let container = document.createElement('div');
-          container.classList.add('article-container');
-
-          //fetch basic information
-          var title       = item.querySelector('title').textContent;
-          var tag_type    = item.getElementsByTagName('DR:ChannelName')[0].firstChild.nodeValue;
-          var description = item.querySelector('description').textContent;
-          var date        = item.querySelector('pubDate').textContent;
-          var redirect    = item.querySelector('link').textContent;
-          var newspaper   = "DANMARKS RADIO";
-
-          console.log(tag_type);
-
-          //format information
-          date = date.substring(17, 22);
-
-          addTag(tag_type, date, newspaper, container);
-          addTitle(title, container, redirect); 
-          addDescription(description, container);
-
-          date = item.querySelector('pubDate').textContent.substring(17, 26);
-
-          timeToContent.set(date, container);
-
-          addToGlobalMap();
-        }).catch(() => console.error('Hit max value'))
-      }).catch(() => console.error('Error in loading the feed'));;
-  }).catch(() => console.error('Error in fething the feed'))
-}
 
 
 function addImage(image_url, container) {
@@ -156,7 +72,7 @@ function addTime(date, container, tag) {
   tag.appendChild(time);
 }
 
-function addTitle(title, container, redirect) {
+function addTitle(title, redirect, container) {
   let h1 = document.createElement('h1');
   h1.textContent = title;
   h1.addEventListener("click", function e() {
@@ -178,4 +94,11 @@ function addNewspaper(newspaper, tag) {
   newspaper_element.classList.add('newspaper-tag');
   newspaper_element.textContent = newspaper;
   tag.appendChild(newspaper_element);
+}
+
+/** Capitalizes first letter 
+ * Taken from Steve Harrison
+*/ https://stackoverflow.com/a/1026087
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
