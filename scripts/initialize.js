@@ -28,6 +28,6 @@ varToLink.set("berlingske_politik_url",  "https://www.berlingske.dk/content/23/r
 varToLink.set("berlingske_seneste_url",  "https://www.berlingske.dk/content/3/rss");
 varToLink.set("berlingske_sport_url",    "https://www.berlingske.dk/content/21803/rss");
 varToLink.set("berlingske_fodbold_url",  "https://www.berlingske.dk/content/176/rss");
-varToLink.set("berlingske_udenrig_url",  "https://www.berlingske.dk/content/2/rss");
+varToLink.set("berlingske_udenrigs_url", "https://www.berlingske.dk/content/2/rss");
 varToLink.set("berlingske_godeliv_url",  "https://www.berlingske.dk/content/1110/rss");
 

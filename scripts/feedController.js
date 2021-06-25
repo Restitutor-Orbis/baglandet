@@ -16,7 +16,7 @@ function showCategory(category) {
 
         case "international":
             activeLinks.push("jylland_udenrigs_url");
-            activeLinks.push("berlingske_udenrig_url");
+            activeLinks.push("berlingske_udenrigs_url");
             activeLinks.push("dr_udenrigs_url");
             break;
 
@@ -152,6 +152,8 @@ function setTagColor(tag_type) {
       case "International":
           return "red";
       case "Udland":
+          return "red";
+      case "Udenrigs":
           return "red";
       case "EM2020":
           return "red";
