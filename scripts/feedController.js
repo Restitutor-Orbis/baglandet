@@ -22,7 +22,7 @@ function showCategory(category) {
 
         case "entertainment":
             activeLinks.push("berlingske_sport_url");
-            activeLinks.push("berlingske_godeliv_url");
+            activeLinks.push("berlingske_lev_url");
             activeLinks.push("dr_sport_url");
             activeLinks.push("dr_viden_url");
             break;
@@ -143,6 +143,8 @@ function setTagColor(tag_type) {
         return "purple";
 
       case "Samfund":
+          return "darkgreen";
+      case "Lev":
           return "darkgreen";
       case "JP Forside":
           return "#009e60";

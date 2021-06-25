@@ -2,15 +2,15 @@
 const DOMPARSER = new DOMParser().parseFromString.bind(new DOMParser())
 
 
-function generateFeed(link) {
+function generateFeed(feed) {
   var newspaper_tag;
   
-  var firstIndex  = link.indexOf("_");
-  var secondIndex = link.indexOf("_", firstIndex + 1);
-  var category    = link.substring(firstIndex + 1, secondIndex);
+  var firstIndex  = feed.indexOf("_");
+  var secondIndex = feed.indexOf("_", firstIndex + 1);
+  var category    = feed.substring(firstIndex + 1, secondIndex);
       category    = capitalizeFirstLetter(category);
 
-  var url = varToLink.get(link);
+  var url = varToLink.get(feed);
 
   if(url.includes("berlingske")) {
     newspaper_tag = "BERLINGSKE";
@@ -32,10 +32,13 @@ function generateFeed(link) {
           if(i == 5) break;
           i++;
 
+          //console.log(entry);
+
           var container = document.createElement("div");
               container.classList.add('article-container');
 
           var date = entry.pubDate.substring(11, 16);
+              date = convertToTimezone(date, "CET");
 
           addTag(category, date, newspaper_tag, container);
           addTitle(entry.title, entry.link, container);
@@ -101,4 +104,30 @@ function addNewspaper(newspaper, tag) {
 */ https://stackoverflow.com/a/1026087
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function convertToTimezone(string, timezone) {
+  var hours = string.substring(0,2);
+      hours = parseInt(hours, 10);
+  var difference = 0;
+
+  switch(timezone) {
+    case "CET":
+      difference = 2;
+      break;
+  }
+
+  hours += difference;
+
+  if(hours > 24) {
+    hours = hours - 24;
+  }
+  if(hours < 10) {
+    hours.toString();
+    hours = "0" + hours;
+  }
+  
+
+
+  return hours + string.substring(2, string.length);
 }
