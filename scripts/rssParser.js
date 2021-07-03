@@ -2,52 +2,52 @@
 const DOMPARSER = new DOMParser().parseFromString.bind(new DOMParser())
 
 
-function generateFeed(feed) {
-  var newspaper_tag;
-  
-  var firstIndex  = feed.indexOf("_");
-  var secondIndex = feed.indexOf("_", firstIndex + 1);
-  var category    = feed.substring(firstIndex + 1, secondIndex);
-      category    = capitalizeFirstLetter(category);
+function generateFeed(feed, noOfArticles) {
+    var newspaper_tag;
+    
+    var firstIndex  = feed.indexOf("_");
+    var secondIndex = feed.indexOf("_", firstIndex + 1);
+    var category    = feed.substring(firstIndex + 1, secondIndex);
+        category    = capitalizeFirstLetter(category);
 
-  var url = varToLink.get(feed);
+    var url = varToLink.get(feed);
 
-  if(url.includes("berlingske")) {
-    newspaper_tag = "BERLINGSKE";
+    if(url.includes("berlingske")) {
+      newspaper_tag = "BERLINGSKE";
 
-  } else if(url.includes("jyllands-posten")) {
-    newspaper_tag = "JYLLANDSPOSTEN";
+    } else if(url.includes("jyllands-posten")) {
+      newspaper_tag = "JYLLANDSPOSTEN";
 
-  } else if(url.includes("dr.dk")) {
-    newspaper_tag = "DANMARKS RADIO";
+    } else if(url.includes("dr.dk")) {
+      newspaper_tag = "DANMARKS RADIO";
 
-  }
+    }
 
-  //using feednami
-  //https://toolkit.sekando.com/docs/en/feednami
-  feednami.load(url)
-  .then(feed => {
-      var i = 0;
-      for(let entry of feed.entries){
-          if(i == 5) break;
-          i++;
+    //using feednami
+    //https://toolkit.sekando.com/docs/en/feednami
+    feednami.load(url)
+    .then(feed => {
+        var i = 0;
+        for(let entry of feed.entries){
+            if(i == noOfArticles) break;
+            i++;
 
-          //console.log(entry);
+            //console.log(entry);
 
-          var container = document.createElement("div");
-              container.classList.add('article-container');
+            var container = document.createElement("div");
+                container.classList.add('article-container');
 
-          var date = entry.pubDate.substring(11, 16);
-              date = convertToTimezone(date, "CET");
+            var date = entry.pubDate.substring(11, 16);
+                date = convertToTimezone(date, "CET");
 
-          addTag(category, date, newspaper_tag, container);
-          addTitle(entry.title, entry.link, container);
-          addDescription(entry.description, container);
+            addTag(category, date, newspaper_tag, container);
+            addTitle(entry.title, entry.link, container);
+            addDescription(entry.description, entry.title, container);
 
-          timeToContent.set(date, container);
-          addToGlobalMap();
-      }
-  });
+            timeToContent.set(date, container);
+            addToGlobalMap();
+        }
+    });
 }
 
 
@@ -62,7 +62,7 @@ function addTag(tag_type, date, newspaper, container) {
   let tag = document.createElement('p');
   tag.textContent = tag_type;
   tag.classList.add('tag');
-  tag.style.color = setTagColor(tag_type);
+  tag.style.color = getTagColor(tag_type);
   container.appendChild(tag);
 
   addTime(date, container, tag);
@@ -84,8 +84,8 @@ function addTitle(title, redirect, container) {
   container.appendChild(h1);
 }
 
-function addDescription(description, container) {
-  if(description.length >200) description = description.substring(0,200) + "...";
+function addDescription(description, title, container) {
+  if(description.length + title.length > 320) description = description.substring(0,200) + "...";
   
   let desc = document.createElement('p');
   desc.textContent = description;

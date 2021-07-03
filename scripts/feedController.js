@@ -1,4 +1,19 @@
 
+//TODO
+    // NEW FEATURES
+        // add your own feed for the default list. corresponding tag with corresponding color.
+        // customize the different sections to own liking. Uses same system as previous requirement.
+        // italize text in quotes
+        // visual re-design
+            //make cards more card-like
+            //not uniform background
+            //dark mode? customize colors.
+    //BUGS
+        // sorting articles should also account for the day, not just the time.
+        // article card height is sometimes too small, sometimes too large. Dynamic way of assigning height?    
+        // make article link into <a> node, to be transparent with link
+
+
 displayArticles();
 
 function showCategory(category) {
@@ -7,8 +22,6 @@ function showCategory(category) {
 
     switch(category) {
         case "domestic":
-            console.log("Showing domestic news");
-
             activeLinks.push("jylland_politik_url");
             activeLinks.push("berlingske_politik_url");
             activeLinks.push("dr_politik_url");
@@ -43,12 +56,12 @@ function showCategory(category) {
 function displayArticles() {
     //delay necesarry to allow feeds to load in first
     for(const value of activeLinks) {
-        generateFeed(value);
+        generateFeed(value, 5);
     }
 
     setTimeout(function () {
         sortKeysInMapAndDisplay();
-    }, 500);
+    }, 1000);
 }
 
 function resetFeed() {
@@ -107,6 +120,12 @@ function sortKeysInMapAndDisplay() {
 }
 
 
+function getTagColor(tag) {
+    tag = "tag_" + tag;
+
+    if(tagToColor.get(tag) === undefined) return "black";
+    else return tagToColor.get(tag);
+} 
 
 //for debugging
 function printMap() {
@@ -117,57 +136,3 @@ function printMap() {
         value = mapIter.next().value;
     }
 }
-
-
-//different tag colors. you need to know the tags in the xml to edit these
-function setTagColor(tag_type) {
-    switch(tag_type) {
-      case "Politik":
-        return "blue";
-      case "Politiske morgenpost":
-          return "blue";  
-      case "Tæt på":
-        return "#191970";
-      case "Europa":
-        return "#191970";
-      case "Indland":
-          return "blue";
-      case "Politi og retsvæsen":
-          return "teal";
-
-      case "Kultur":
-        return "purple";
-      case "Film og serier":
-        return "purple";
-      case "Litteratur":
-        return "purple";
-
-      case "Samfund":
-          return "darkgreen";
-      case "Lev":
-          return "darkgreen";
-      case "JP Forside":
-          return "#009e60";
-
-      case "Internationalt":
-          return "red";
-      case "International":
-          return "red";
-      case "Udland":
-          return "red";
-      case "Udenrigs":
-          return "red";
-      case "EM2020":
-          return "red";
-      case "Alt":
-          return "red";
-
-      case "Sport":
-          return "orange";
-      case "Cykling":
-          return "orange";
-          
-      default:
-        return "black";
-    }
-  }

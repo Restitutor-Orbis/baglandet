@@ -1,0 +1,9 @@
+:root {
+    --accent-color: red;
+    --header-text-color: white;
+    --header-background-color: #253D5B;
+    --header-background-color: #131f2c;
+    --main-background-color: #cdd4db;
+    --background-contrast-color: white;
+    --card-text-color: black;
+}

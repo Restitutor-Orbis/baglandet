@@ -1,6 +1,7 @@
 var timeToContent   = new Map();
 var mapOfAllContent = new Map();
 var varToLink       = new Map();
+var tagToColor      = new Map();
 
 var activeLinks     = ["dr_alt_url",
                        "berlingske_politik_url",
@@ -9,6 +10,9 @@ var activeLinks     = ["dr_alt_url",
 
 var noOfElements  = 0;
 
+initColors();
+
+//RSS LINKS
 varToLink.set("podcast_politics_url",    "https://rss.acast.com/altingetpolitik");
 varToLink.set("podcast_EU_url",          "https://rss.acast.com/altingeteu");
 
@@ -31,3 +35,11 @@ varToLink.set("berlingske_fodbold_url",  "https://www.berlingske.dk/content/176/
 varToLink.set("berlingske_udenrigs_url", "https://www.berlingske.dk/content/2/rss");
 varToLink.set("berlingske_lev_url",  "https://www.berlingske.dk/content/1110/rss");
 
+//TAGS TO COLORS 
+
+function initColors() {
+    tagToColor.set("tag_Politik", localStorage.tag_Politik || "blue");
+    tagToColor.set("tag_Udenrigs", localStorage.tag_Udenrigs || "red");
+    tagToColor.set("tag_Sport", localStorage.tag_Udenrigs || "orange");
+    tagToColor.set("tag_Alt", localStorage.tag_Udenrigs || "red");
+}
